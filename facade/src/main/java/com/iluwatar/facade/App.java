@@ -21,6 +21,7 @@ public class App {
    * @param args command line args
    */
   public static void main(String[] args) {
+    // OK, I must understand facade firstly
     DwarvenGoldmineFacade facade = new DwarvenGoldmineFacade();
     facade.startNewDay();
     facade.digOutGold();
