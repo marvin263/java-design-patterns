@@ -1,4 +1,29 @@
+/**
+ * The MIT License
+ * Copyright (c) 2014-2016 Ilkka Seppälä
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.iluwatar.interpreter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Stack;
 
@@ -14,6 +39,8 @@ import java.util.Stack;
  * 
  */
 public class App {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
   /**
    * 
@@ -34,27 +61,30 @@ public class App {
       if (isOperator(s)) {
         Expression rightExpression = stack.pop();
         Expression leftExpression = stack.pop();
-        System.out.println(String.format("popped from stack left: %d right: %d",
-            leftExpression.interpret(), rightExpression.interpret()));
+        LOGGER.info("popped from stack left: {} right: {}",
+            leftExpression.interpret(), rightExpression.interpret());
         Expression operator = getOperatorInstance(s, leftExpression, rightExpression);
-        System.out.println(String.format("operator: %s", operator));
+        LOGGER.info("operator: {}", operator);
         int result = operator.interpret();
         NumberExpression resultExpression = new NumberExpression(result);
         stack.push(resultExpression);
-        System.out.println(String.format("push result to stack: %d", resultExpression.interpret()));
+        LOGGER.info("push result to stack: {}", resultExpression.interpret());
       } else {
         Expression i = new NumberExpression(s);
         stack.push(i);
-        System.out.println(String.format("push to stack: %d", i.interpret()));
+        LOGGER.info("push to stack: {}", i.interpret());
       }
     }
-    System.out.println(String.format("result: %d", stack.pop().interpret()));
+    LOGGER.info("result: {}", stack.pop().interpret());
   }
 
   public static boolean isOperator(String s) {
     return s.equals("+") || s.equals("-") || s.equals("*");
   }
 
+  /**
+   * Get expression for string
+   */
   public static Expression getOperatorInstance(String s, Expression left, Expression right) {
     switch (s) {
       case "+":
@@ -63,7 +93,8 @@ public class App {
         return new MinusExpression(left, right);
       case "*":
         return new MultiplyExpression(left, right);
+      default:
+        return new MultiplyExpression(left, right);
     }
-    return null;
   }
 }

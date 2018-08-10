@@ -12,3 +12,9 @@ target
 *.iml
 *.swp
 datanucleus.log
+/bin/
+/bin/
+/bin/
+*.log
+data-mapper/src/main/resources/log4j.xml
+event-sourcing/Journal.json

@@ -1,3 +1,25 @@
+/**
+ * The MIT License
+ * Copyright (c) 2014-2016 Ilkka Seppälä
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.iluwatar.servicelayer.app;
 
 import java.util.List;
@@ -13,6 +35,8 @@ import com.iluwatar.servicelayer.spellbook.SpellbookDaoImpl;
 import com.iluwatar.servicelayer.wizard.Wizard;
 import com.iluwatar.servicelayer.wizard.WizardDao;
 import com.iluwatar.servicelayer.wizard.WizardDaoImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -35,6 +59,8 @@ import com.iluwatar.servicelayer.wizard.WizardDaoImpl;
  */
 public class App {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
   /**
    * Program entry point
    * 
@@ -47,6 +73,9 @@ public class App {
     queryData();
   }
 
+  /**
+   * Initialize data
+   */
   public static void initData() {
     // spells
     Spell spell1 = new Spell("Ice dart");
@@ -149,30 +178,33 @@ public class App {
     wizardDao.merge(wizard4);
   }
 
+  /**
+   * Query the data
+   */
   public static void queryData() {
     MagicService service =
         new MagicServiceImpl(new WizardDaoImpl(), new SpellbookDaoImpl(), new SpellDaoImpl());
-    System.out.println("Enumerating all wizards");
+    LOGGER.info("Enumerating all wizards");
     for (Wizard w : service.findAllWizards()) {
-      System.out.println(w.getName());
+      LOGGER.info(w.getName());
     }
-    System.out.println("Enumerating all spellbooks");
+    LOGGER.info("Enumerating all spellbooks");
     for (Spellbook s : service.findAllSpellbooks()) {
-      System.out.println(s.getName());
+      LOGGER.info(s.getName());
     }
-    System.out.println("Enumerating all spells");
+    LOGGER.info("Enumerating all spells");
     for (Spell s : service.findAllSpells()) {
-      System.out.println(s.getName());
+      LOGGER.info(s.getName());
     }
-    System.out.println("Find wizards with spellbook 'Book of Idores'");
+    LOGGER.info("Find wizards with spellbook 'Book of Idores'");
     List<Wizard> wizardsWithSpellbook = service.findWizardsWithSpellbook("Book of Idores");
     for (Wizard w : wizardsWithSpellbook) {
-      System.out.println(String.format("%s has 'Book of Idores'", w.getName()));
+      LOGGER.info("{} has 'Book of Idores'", w.getName());
     }
-    System.out.println("Find wizards with spell 'Fireball'");
+    LOGGER.info("Find wizards with spell 'Fireball'");
     List<Wizard> wizardsWithSpell = service.findWizardsWithSpell("Fireball");
     for (Wizard w : wizardsWithSpell) {
-      System.out.println(String.format("%s has 'Fireball'", w.getName()));
+      LOGGER.info("{} has 'Fireball'", w.getName());
     }
   }
 }

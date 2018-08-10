@@ -1,14 +1,42 @@
+/**
+ * The MIT License
+ * Copyright (c) 2014-2016 Ilkka Seppälä
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.iluwatar.fluentinterface.app;
+
+import static java.lang.String.valueOf;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringJoiner;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import com.iluwatar.fluentinterface.fluentiterable.FluentIterable;
 import com.iluwatar.fluentinterface.fluentiterable.lazy.LazyFluentIterable;
 import com.iluwatar.fluentinterface.fluentiterable.simple.SimpleFluentIterable;
-
-import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
-import static java.lang.String.valueOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Fluent Interface pattern is useful when you want to provide an easy readable, flowing API.
@@ -24,6 +52,11 @@ import static java.lang.String.valueOf;
  */
 public class App {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
+  /**
+   * Program entry point
+   */
   public static void main(String[] args) {
 
     List<Integer> integerList = new ArrayList<>();
@@ -45,9 +78,7 @@ public class App {
         .fromCopyOf(integerList)
         .filter(number -> number % 2 == 0)
         .first()
-        .ifPresent(
-            evenNumber -> System.out.println(String.format("The first even number is: %d",
-                evenNumber)));
+        .ifPresent(evenNumber -> LOGGER.info("The first even number is: {}", evenNumber));
 
 
     List<String> transformedList =
@@ -58,7 +89,7 @@ public class App {
 
     List<String> lastTwoOfFirstFourStringMapped =
         LazyFluentIterable.from(integerList).filter(positives()).first(4).last(2)
-            .map(number -> "String[" + String.valueOf(number) + "]").asList();
+            .map(number -> "String[" + valueOf(number) + "]").asList();
     prettyPrint(
         "The lazy list contains the last two of the first four positive numbers mapped to Strings: ",
         lastTwoOfFirstFourStringMapped);
@@ -68,9 +99,7 @@ public class App {
         .filter(negatives())
         .first(2)
         .last()
-        .ifPresent(
-            lastOfFirstTwo -> System.out.println(String.format(
-                "The last of the first two negatives is: %d", lastOfFirstTwo)));
+        .ifPresent(lastOfFirstTwo -> LOGGER.info("The last of the first two negatives is: {}", lastOfFirstTwo));
   }
 
   private static Function<Integer, String> transformToString() {
@@ -78,25 +107,25 @@ public class App {
   }
 
   private static Predicate<? super Integer> negatives() {
-    return integer -> (integer < 0);
+    return integer -> integer < 0;
   }
 
   private static Predicate<? super Integer> positives() {
-    return integer -> (integer > 0);
+    return integer -> integer > 0;
   }
 
-  private static <TYPE> void prettyPrint(String prefix, Iterable<TYPE> iterable) {
-    prettyPrint(", ", prefix, ".", iterable);
+  private static <E> void prettyPrint(String prefix, Iterable<E> iterable) {
+    prettyPrint(", ", prefix, iterable);
   }
 
-  private static <TYPE> void prettyPrint(String delimiter, String prefix, String suffix,
-      Iterable<TYPE> iterable) {
+  private static <E> void prettyPrint(String delimiter, String prefix,
+                                         Iterable<E> iterable) {
     StringJoiner joiner = new StringJoiner(delimiter, prefix, ".");
-    Iterator<TYPE> iterator = iterable.iterator();
+    Iterator<E> iterator = iterable.iterator();
     while (iterator.hasNext()) {
       joiner.add(iterator.next().toString());
     }
 
-    System.out.println(joiner);
+    LOGGER.info(joiner.toString());
   }
 }

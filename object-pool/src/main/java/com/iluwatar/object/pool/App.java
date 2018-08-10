@@ -1,4 +1,29 @@
+/**
+ * The MIT License
+ * Copyright (c) 2014-2016 Ilkka Seppälä
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.iluwatar.object.pool;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -22,6 +47,8 @@ package com.iluwatar.object.pool;
  */
 public class App {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
   /**
    * Program entry point
    * 
@@ -29,24 +56,24 @@ public class App {
    */
   public static void main(String[] args) {
     OliphauntPool pool = new OliphauntPool();
-    System.out.println(pool);
+    LOGGER.info(pool.toString());
     Oliphaunt oliphaunt1 = pool.checkOut();
-    System.out.println("Checked out " + oliphaunt1);
-    System.out.println(pool);
+    LOGGER.info("Checked out {}", oliphaunt1);
+    LOGGER.info(pool.toString());
     Oliphaunt oliphaunt2 = pool.checkOut();
-    System.out.println("Checked out " + oliphaunt2);
+    LOGGER.info("Checked out {}", oliphaunt2);
     Oliphaunt oliphaunt3 = pool.checkOut();
-    System.out.println("Checked out " + oliphaunt3);
-    System.out.println(pool);
-    System.out.println("Checking in " + oliphaunt1);
+    LOGGER.info("Checked out {}", oliphaunt3);
+    LOGGER.info(pool.toString());
+    LOGGER.info("Checking in {}", oliphaunt1);
     pool.checkIn(oliphaunt1);
-    System.out.println("Checking in " + oliphaunt2);
+    LOGGER.info("Checking in {}", oliphaunt2);
     pool.checkIn(oliphaunt2);
-    System.out.println(pool);
+    LOGGER.info(pool.toString());
     Oliphaunt oliphaunt4 = pool.checkOut();
-    System.out.println("Checked out " + oliphaunt4);
+    LOGGER.info("Checked out {}", oliphaunt4);
     Oliphaunt oliphaunt5 = pool.checkOut();
-    System.out.println("Checked out " + oliphaunt5);
-    System.out.println(pool);
+    LOGGER.info("Checked out {}", oliphaunt5);
+    LOGGER.info(pool.toString());
   }
 }

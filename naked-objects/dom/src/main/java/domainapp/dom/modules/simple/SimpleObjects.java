@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -30,9 +30,20 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
+/**
+ * Domain Service for Simple Objects
+ */
 @DomainService(repositoryFor = SimpleObject.class)
 @DomainServiceLayout(menuOrder = "10")
 public class SimpleObjects {
+  // endregion
+
+  // region > injected services
+
+  @javax.inject.Inject
+  DomainObjectContainer container;
+
+  // endregion
 
   // region > title
   public TranslatableString title() {
@@ -61,6 +72,9 @@ public class SimpleObjects {
 
   // endregion
 
+  /**
+   * Create Domain Event on SimpleObjects
+   */
   // region > create (action)
   public static class CreateDomainEvent extends ActionDomainEvent<SimpleObjects> {
     public CreateDomainEvent(final SimpleObjects source, final Identifier identifier,
@@ -69,21 +83,16 @@ public class SimpleObjects {
     }
   }
 
+  /**
+   * Create simple object
+   */
   @Action(domainEvent = CreateDomainEvent.class)
   @MemberOrder(sequence = "3")
-  public SimpleObject create(final @ParameterLayout(named = "Name") String name) {
+  public SimpleObject create(@ParameterLayout(named = "Name") final String name) {
     final SimpleObject obj = container.newTransientInstance(SimpleObject.class);
     obj.setName(name);
     container.persistIfNotAlready(obj);
     return obj;
   }
 
-  // endregion
-
-  // region > injected services
-
-  @javax.inject.Inject
-  DomainObjectContainer container;
-
-  // endregion
 }

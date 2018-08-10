@@ -51,14 +51,14 @@ import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchThemeProvid
  * See:
  * 
  * <pre>
- * &lt;filter>
- *   &lt;filter-name>wicket&lt;/filter-name>
- *    &lt;filter-class>org.apache.wicket.protocol.http.WicketFilter&lt;/filter-class>
- *    &lt;init-param>
- *      &lt;param-name>applicationClassName&lt;/param-name>
- *      &lt;param-value>webapp.SimpleApplication&lt;/param-value>
- *    &lt;/init-param>
- * &lt;/filter>
+ * &lt;filter&gt;
+ *   &lt;filter-name&gt;wicket&lt;/filter-name&gt;
+ *    &lt;filter-class&gt;org.apache.wicket.protocol.http.WicketFilter&lt;/filter-class&gt;
+ *    &lt;init-param&gt;
+ *      &lt;param-name&gt;applicationClassName&lt;/param-name&gt;
+ *      &lt;param-value&gt;webapp.SimpleApplication&lt;/param-value&gt;
+ *    &lt;/init-param&gt;
+ * &lt;/filter&gt;
  * </pre>
  * 
  */
@@ -69,12 +69,12 @@ public class SimpleApplication extends IsisWicketApplication {
   /**
    * uncomment for a (slightly hacky) way of allowing logins using query args, eg:
    * 
-   * <tt>?user=sven&pass=pass</tt>
+   * <tt>{@code ?user=sven&pass=pass}</tt>
    * 
    * <p>
    * for demos only, obvious.
    */
-  private final static boolean DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS = false;
+  private static final boolean DEMO_MODE_USING_CREDENTIALS_AS_QUERYARGS = false;
 
 
   @Override
@@ -116,9 +116,9 @@ public class SimpleApplication extends IsisWicketApplication {
         servletRequest.getSession().invalidate();
       }
     } catch (Exception e) {
+      System.out.println(e);
     }
-    WebRequest request = super.newWebRequest(servletRequest, filterPath);
-    return request;
+    return super.newWebRequest(servletRequest, filterPath);
   }
 
   @Override
@@ -149,8 +149,7 @@ public class SimpleApplication extends IsisWicketApplication {
       List<String> readLines =
           Resources.readLines(Resources.getResource(contextClass, resourceName),
               Charset.defaultCharset());
-      final String aboutText = Joiner.on("\n").join(readLines);
-      return aboutText;
+      return Joiner.on("\n").join(readLines);
     } catch (IOException e) {
       return "This is a simple app";
     }

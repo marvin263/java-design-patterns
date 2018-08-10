@@ -25,15 +25,17 @@ import org.apache.isis.core.integtestsupport.scenarios.ScenarioExecutionForInteg
 
 import domainapp.integtests.bootstrap.SimpleAppSystemInitializer;
 
+/**
+ * SimpleApp Integration Tests will implement this Abstract Class.
+ */
 public abstract class SimpleAppIntegTest extends IntegrationTestAbstract {
 
-    @BeforeClass
-    public static void initClass() {
-        org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        SimpleAppSystemInitializer.initIsft();
+  @BeforeClass
+  public static void initClass() {
+    org.apache.log4j.PropertyConfigurator.configure("logging.properties");
+    SimpleAppSystemInitializer.initIsft();
 
-        // instantiating will install onto ThreadLocal
-        new ScenarioExecutionForIntegration();
-    }
-
+    // instantiating will install onto ThreadLocal
+    new ScenarioExecutionForIntegration();
+  }
 }

@@ -14,22 +14,24 @@
  */
 package domainapp.integtests.specglue.modules.simple;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.apache.isis.core.specsupport.specs.CukeGlueAbstract;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import domainapp.dom.modules.simple.SimpleObject;
 import domainapp.dom.modules.simple.SimpleObjects;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import java.util.List;
+import java.util.UUID;
+import org.apache.isis.core.specsupport.specs.CukeGlueAbstract;
 
+/**
+ * Test Simple Object Operations
+ */
 public class SimpleObjectGlue extends CukeGlueAbstract {
 
   @Given("^there are.* (\\d+) simple objects$")
-  public void there_are_N_simple_objects(int n) throws Throwable {
+  public void thereAreNumSimpleObjects(int n) throws Throwable {
     try {
       final List<SimpleObject> findAll = service(SimpleObjects.class).listAll();
       assertThat(findAll.size(), is(n));
@@ -41,7 +43,7 @@ public class SimpleObjectGlue extends CukeGlueAbstract {
   }
 
   @When("^I create a new simple object$")
-  public void I_create_a_new_simple_object() throws Throwable {
+  public void createNewSimpleObject() throws Throwable {
     service(SimpleObjects.class).create(UUID.randomUUID().toString());
   }
 
