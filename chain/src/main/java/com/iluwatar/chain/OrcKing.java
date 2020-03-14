@@ -24,22 +24,26 @@
 package com.iluwatar.chain;
 
 /**
+ * 《兽人之王Orc King》最近成为了大家娱乐的首选，然而一款新的游戏，需要花费大家一定的时间去了解......
+ * <p>
+ * <p>
  * OrcKing makes requests that are handled by the chain.
  */
 public class OrcKing {
 
-  private RequestHandler chain;
+    private RequestHandler chain;
 
-  public OrcKing() {
-    buildChain();
-  }
+    public OrcKing() {
+        buildChain();
+    }
 
-  private void buildChain() {
-    chain = new OrcCommander(new OrcOfficer(new OrcSoldier(null)));
-  }
+    private void buildChain() {
+        // 用这种方式构建起来了 责任链
+        chain = new OrcCommander(new OrcOfficer(new OrcSoldier(null)));
+    }
 
-  public void makeRequest(Request req) {
-    chain.handleRequest(req);
-  }
+    public void makeRequest(Request req) {
+        chain.handleRequest(req);
+    }
 
 }

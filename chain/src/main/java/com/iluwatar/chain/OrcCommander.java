@@ -25,25 +25,29 @@ package com.iluwatar.chain;
 
 /**
  * OrcCommander.
+ * <p>
+ * 传令兵
  */
 public class OrcCommander extends RequestHandler {
 
-  public OrcCommander(RequestHandler handler) {
-    super(handler);
-  }
-
-  @Override
-  public void handleRequest(Request req) {
-    if (RequestType.DEFEND_CASTLE == req.getRequestType()) {
-      printHandling(req);
-      req.markHandled();
-    } else {
-      super.handleRequest(req);
+    public OrcCommander(RequestHandler handler) {
+        super(handler);
     }
-  }
 
-  @Override
-  public String toString() {
-    return "Orc commander";
-  }
+    @Override
+    public void handleRequest(Request req) {
+        // 是自己的就处理，并标记为 handled。并且，不再向后传递
+        // 不是自己的即传递下去
+        if (RequestType.DEFEND_CASTLE == req.getRequestType()) {
+            printHandling(req);
+            req.markHandled();
+        } else {
+            super.handleRequest(req);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Orc commander";
+    }
 }

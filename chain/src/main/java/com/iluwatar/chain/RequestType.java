@@ -27,7 +27,20 @@ package com.iluwatar.chain;
  * RequestType enumeration.
  */
 public enum RequestType {
+    /**
+     * 保卫城堡
+     */
+    DEFEND_CASTLE,
 
-  DEFEND_CASTLE, TORTURE_PRISONER, COLLECT_TAX
+    /**
+     * torture 折磨；拷问
+     * prisoner 囚犯
+     */
+    TORTURE_PRISONER,
+
+    /**
+     * 收税
+     */
+    COLLECT_TAX
 
 }

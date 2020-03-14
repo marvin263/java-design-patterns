@@ -41,6 +41,11 @@ public abstract class RequestHandler {
 
   /**
    * Request handler.
+   * 
+   * 在该 处理对象(processing object) 中，是如何处理给定请求的。
+   * 
+   * 默认就是传递给下一个 处理对象(processing object)
+   * 
    */
   public void handleRequest(Request req) {
     if (next != null) {

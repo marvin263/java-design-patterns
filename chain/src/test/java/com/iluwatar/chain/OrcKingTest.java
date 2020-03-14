@@ -39,9 +39,10 @@ public class OrcKingTest {
    * All possible requests
    */
   private static final List<Request> REQUESTS = List.of(
+      // barbarian 野蛮人；未开化的人
       new Request(RequestType.DEFEND_CASTLE, "Don't let the barbarians enter my castle!!"),
       new Request(RequestType.TORTURE_PRISONER, "Don't just stand there, tickle him!"),
-      new Request(RequestType.COLLECT_TAX, "Don't steal, the King hates competition ...")
+      new Request(RequestType.COLLECT_TAX, "Don't steal, the King hates compensation ...")
   );
 
   @Test
