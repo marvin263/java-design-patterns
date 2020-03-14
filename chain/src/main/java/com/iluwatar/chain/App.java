@@ -39,7 +39,7 @@ package com.iluwatar.chain;
  * each handler has a chance to act on the request on its turn（独立地）.
  * <p>
  * Here the king ({@link OrcKing}) makes requests and
- * the military orcs ({@link OrcCommander}, {@link OrcOfficer}, {@link OrcSoldier}) form the handler chain.
+ * the military orcs ({@link OrcCommander}, {@link OrcOfficer}, {@link OrcSoldier}) form（构成了） the handler chain.
  * <p>
  * OrcCommander-->OrcOfficer-->OrcSoldier 构成了责任链
  */

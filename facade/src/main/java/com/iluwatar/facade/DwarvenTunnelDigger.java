@@ -27,19 +27,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 小矮人 打隧道 矿工
+ * <p>
  * DwarvenTunnelDigger is one of the goldmine subsystems.
  */
 public class DwarvenTunnelDigger extends DwarvenMineWorker {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenTunnelDigger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenTunnelDigger.class);
 
-  @Override
-  public void work() {
-    LOGGER.info("{} creates another promising tunnel.", name());
-  }
+    @Override
+    public void work() {
+        LOGGER.info("{} creates another promising tunnel.", name());
+    }
 
-  @Override
-  public String name() {
-    return "Dwarven tunnel digger";
-  }
+    @Override
+    public String name() {
+        return "Dwarven tunnel digger";
+    }
 }

@@ -27,19 +27,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 小矮人 挖金子 矿工
+ * <p>
  * DwarvenGoldDigger is one of the goldmine subsystems.
  */
 public class DwarvenGoldDigger extends DwarvenMineWorker {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenGoldDigger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DwarvenGoldDigger.class);
 
-  @Override
-  public void work() {
-    LOGGER.info("{} digs for gold.", name());
-  }
+    @Override
+    public void work() {
+        LOGGER.info("{} digs for gold.", name());
+    }
 
-  @Override
-  public String name() {
-    return "Dwarf gold digger";
-  }
+    @Override
+    public String name() {
+        return "Dwarf gold digger";
+    }
 }

@@ -25,6 +25,9 @@ package com.iluwatar.command;
 
 /**
  * Goblin is the target of the spells.
+ * 
+ * goblin 小妖精
+ * 
  */
 public class Goblin extends Target {
 

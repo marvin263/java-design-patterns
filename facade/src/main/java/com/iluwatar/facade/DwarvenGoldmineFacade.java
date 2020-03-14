@@ -27,42 +27,55 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * DwarvenGoldmineFacade provides a single interface through which users can operate the
- * subsystems.
+ * Dwarven 矮人族
+ * <p>
+ * DwarvenGoldmineFacade provides a single interface through which users can operate the subsystems.
  *
- * <p>This makes the goldmine easier to operate and cuts the dependencies from the goldmine user to
- * the subsystems.
+ * <p>This makes the goldmine easier to operate and
+ * cuts the dependencies from the goldmine user to the subsystems.
+ * 
+ * “门面模式”不大有体会。平时用到“门面模式”的机会太少了
+ * 
  */
 public class DwarvenGoldmineFacade {
 
-  private final List<DwarvenMineWorker> workers;
+    private final List<DwarvenMineWorker> workers;
 
-  /**
-   * Constructor.
-   */
-  public DwarvenGoldmineFacade() {
-    workers = List.of(
-        new DwarvenGoldDigger(),
-        new DwarvenCartOperator(),
-        new DwarvenTunnelDigger());
-  }
+    /**
+     * Constructor.
+     */
+    public DwarvenGoldmineFacade() {
+        workers = List.of(
+                new DwarvenGoldDigger(),
+                new DwarvenCartOperator(),
+                new DwarvenTunnelDigger());
+    }
 
-  public void startNewDay() {
-    makeActions(workers, DwarvenMineWorker.Action.WAKE_UP, DwarvenMineWorker.Action.GO_TO_MINE);
-  }
+    /**
+     * 又是美好的一天啊
+     * <p>
+     * 所有人，去矿上
+     */
+    public void startNewDay() {
+        makeActions(workers, DwarvenMineWorker.Action.WAKE_UP, DwarvenMineWorker.Action.GO_TO_MINE);
+    }
 
-  public void digOutGold() {
-    makeActions(workers, DwarvenMineWorker.Action.WORK);
-  }
+    /**
+     * 所有人，都要努力干活哦
+     */
+    public void digOutGold() {
+        makeActions(workers, DwarvenMineWorker.Action.WORK);
+    }
 
-  public void endDay() {
-    makeActions(workers, DwarvenMineWorker.Action.GO_HOME, DwarvenMineWorker.Action.GO_TO_SLEEP);
-  }
+    /**
+     * 好了，要下班咯
+     *  
+     */
+    public void endDay() {
+        makeActions(workers, DwarvenMineWorker.Action.GO_HOME, DwarvenMineWorker.Action.GO_TO_SLEEP);
+    }
 
-  private static void makeActions(
-      Collection<DwarvenMineWorker> workers,
-      DwarvenMineWorker.Action... actions
-  ) {
-    workers.forEach(worker -> worker.action(actions));
-  }
+    private static void makeActions(Collection<DwarvenMineWorker> workers, DwarvenMineWorker.Action... actions) {
+        workers.forEach(worker -> worker.action(actions));
+    }
 }
