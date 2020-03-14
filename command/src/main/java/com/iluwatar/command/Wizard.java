@@ -29,6 +29,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * wizard      男巫；术士
+ * cast spell  施展法术
+ * goblin      小妖精
+ * 
  * Wizard is the invoker of the commands.
  */
 public class Wizard {
@@ -44,6 +48,8 @@ public class Wizard {
 
   /**
    * Cast spell.
+   * 
+   * 施展法术
    */
   public void castSpell(Command command, Target target) {
     LOGGER.info("{} casts {} at {}", this, command, target);

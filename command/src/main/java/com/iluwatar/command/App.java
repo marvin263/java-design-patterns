@@ -26,8 +26,11 @@ package com.iluwatar.command;
 /**
  * <pre>
  * The Command pattern is a behavioral design pattern in which an object is used to encapsulate all
- * information needed to perform an action or trigger an event at a later time. This information
- * includes the method name, the object that owns the method and values for the method parameters.
+ * information needed to perform an action or trigger an event at a later time.
+ * This information includes
+ * 1. the method name,
+ * 2. the object that owns the method and
+ * 3. values for the method parameters.
  *
  * <p>Four terms always associated with the command pattern are
  * 1. command,
@@ -36,16 +39,24 @@ package com.iluwatar.command;
  * 4. client.
  *
  * A command object (spell) knows about the receiver (target) and invokes a method of the
- * receiver. Values for parameters of the receiver method are stored in the command. The receiver
- * then does the work. An invoker object (wizard) knows how to execute a command, and optionally
- * does bookkeeping about the command execution. The invoker does not know anything about a concrete
- * command, it knows only about command interface. Both an invoker object and several command
- * objects are held by a client object (app). The client decides which commands to execute at which
- * points. To execute a command, it passes the command object to the invoker object.
+ * receiver.
+ *
+ * Values for parameters of the receiver method are stored in the command. The receiver
+ * then does the work.
+ *
+ * An invoker object (wizard) knows how to execute a command, and optionally
+ * does bookkeeping about the command execution.
+ * The invoker does not know anything about a concrete
+ * command, it knows only about command interface.
+ *
+ * Both an invoker object and several command objects are held by a client object (app).
+ * The client decides which commands to execute at which points.
+ *
+ * To execute a command, it passes the command object to the invoker object.
  *
  * <p>In other words, in this example the wizard casts spells on the goblin. The wizard keeps track
- * of the previous spells cast, so it is easy to undo them. In addition, the wizard keeps track of
- * the spells undone, so they can be redone.
+ * of the previous spells cast, so it is easy to undo them.
+ * In addition, the wizard keeps track of the spells undone, so they can be redone.
  *
  * </pre>
  */
@@ -57,14 +68,22 @@ public class App {
      * @param args command line args
      */
     public static void main(String[] args) {
+        // App是client，app自己决定：“在什么地点，执行什么command”
+        
+        // invoker
         var wizard = new Wizard();
+        // target
         var goblin = new Goblin();
 
         goblin.printStatus();
 
+        // command执行时要作用到谁？作用到target，这个target存储在command本身中
+        
+        // 术士 给小精灵 施展魔法（缩小的魔法）
         wizard.castSpell(new ShrinkSpell(), goblin);
         goblin.printStatus();
 
+        // 术士 给小精灵 施展魔法（隐身的魔法）
         wizard.castSpell(new InvisibilitySpell(), goblin);
         goblin.printStatus();
 
