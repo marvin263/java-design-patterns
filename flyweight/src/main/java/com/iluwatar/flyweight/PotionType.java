@@ -27,6 +27,28 @@ package com.iluwatar.flyweight;
  * Enumeration for potion types.
  */
 public enum PotionType {
-
-  HEALING, INVISIBILITY, STRENGTH, HOLY_WATER, POISON
+  /**
+   * 自愈
+   */
+  HEALING,
+  
+  /**
+   * 隐身
+   */
+  INVISIBILITY,
+  
+  /**
+   * 加力量
+   */
+  STRENGTH,
+  
+  /**
+   * 圣水
+   */
+  HOLY_WATER,
+  
+  /**
+   * 毒药
+   */
+  POISON
 }

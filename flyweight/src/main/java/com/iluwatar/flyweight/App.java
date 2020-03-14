@@ -38,6 +38,11 @@ package com.iluwatar.flyweight;
 public class App {
 
   /**
+   * <pre>
+   *     Alchemist 炼金术士
+   *     
+   * </pre>
+   * 
    * Program entry point.
    *
    * @param args command line args
